@@ -4,11 +4,23 @@
     <string name="action_refresh" translatable="false">Refresh</string>
 
     <string name="title_activity_settings">Settingz</string>
-
     <string name="permission_internet" translatable="false">Internet permission</string>
 
+    <!--location-->
     <string name="pref_location_label">Location</string>
     <string name="pref_location_key" translatable="false">location</string>
     <string name="pref_location_default" translatable="false">Sao Paulo, BR</string>
+
+    <!--temperature-->
+    <string name="pref_units_label">Temperature Units</string>
+    <string name="pref_units_key" translatable="false">units</string>
+    <string name="pref_units_label_metric">Metric</string>
+    <string name="pref_units_label_imperial">Imperial</string>
+    <string name="pref_units_imperial" translatable="false">imperial</string>
+    <string name="pref_units_metric" translatable="false">metric</string>
+
+    <!--menu-->
+    <string name="action_map">Map Location</string>
+    <string name="action_share">Share</string>
 
 </resources>
