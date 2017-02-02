@@ -16,7 +16,8 @@ import android.view.View;
 
 public class MainActivity extends AppCompatActivity {
 
-    private final String LOG_TAG = ForecastFragment.FetchWeatherTask.class.getSimpleName();
+    private final String LOG_TAG = FetchWeatherTask.class.getSimpleName();
+    public String mLocation;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
