@@ -30,7 +30,8 @@
         </activity>
         <provider
             android:authorities="com.example.anamartinazzo.sunshine.app"
-            android:name=".data.WeatherProvider" />
+            android:name=".data.WeatherProvider">
+        </provider>
     </application>
 
 </manifest>
