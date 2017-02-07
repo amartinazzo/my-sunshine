@@ -85,31 +85,13 @@ public class ForecastFragment extends Fragment implements LoaderManager.LoaderCa
         return super.onOptionsItemSelected(item);
     }
 
-    //remove it to prevent app from downloading data from open weather map every time it starts/rotates etc
-//    @Override
-//    public void onStart() {
-//        super.onStart();
-//        updateWeather();
-//    }
-
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
+        mForecastAdapter = new ForecastAdapter(getActivity(), null, 0);
 
         //inflate view that will be used to find elements later
         View rootView = inflater.inflate(R.layout.fragment_main, container, false);
-
-        String locationSetting = Utility.getPreferredLocation(getActivity());
-
-        // Sort order:  Ascending, by date.
-        String sortOrder = WeatherContract.WeatherEntry.COLUMN_DATE + " ASC";
-        Uri weatherForLocationUri = WeatherContract.WeatherEntry.buildWeatherLocationWithStartDate(
-                locationSetting, System.currentTimeMillis());
-
-        Cursor cur = getActivity().getContentResolver().query(weatherForLocationUri,
-                null, null, null, sortOrder);
-
-        mForecastAdapter = new ForecastAdapter(getActivity(), cur, 0);
 
         ListView listView = (ListView) rootView.findViewById(R.id.listview);
         listView.setAdapter(mForecastAdapter);
