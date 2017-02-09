@@ -50,8 +50,7 @@ public class ForecastFragment extends Fragment implements LoaderManager.LoaderCa
 
     private ForecastAdapter mForecastAdapter;
 
-    public ForecastFragment() {
-    }
+    public ForecastFragment() { }
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
