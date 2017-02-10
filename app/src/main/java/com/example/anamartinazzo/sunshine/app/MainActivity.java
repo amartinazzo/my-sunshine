@@ -13,18 +13,25 @@ import android.view.MenuItem;
 public class MainActivity extends ActionBarActivity {
 
     private final String LOG_TAG = FetchWeatherTask.class.getSimpleName();
+    private static final String DETAILFRAGMENT_TAG = "DFTAG";
     public String mLocation;
-    private final String FORECASTFRAGMENT_TAG = "FFTAG";
+
+    private boolean mTwoPane;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         mLocation = Utility.getPreferredLocation(this); //get location from shared preferences
         setContentView(R.layout.activity_main);
-        if (savedInstanceState == null) {
-            getSupportFragmentManager().beginTransaction()
-                    .add(R.id.container, new ForecastFragment(), FORECASTFRAGMENT_TAG)
-                    .commit();
+        if (findViewById(R.id.weather_detail_container) != null) {
+            mTwoPane = true;
+            if (savedInstanceState == null) {
+                getSupportFragmentManager().beginTransaction()
+                        .replace(R.id.weather_detail_container, new DetailFragment(), DETAILFRAGMENT_TAG)
+                        .commit();
+            }
+        } else {
+            mTwoPane = false;
         }
     }
 
@@ -36,12 +43,8 @@ public class MainActivity extends ActionBarActivity {
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
         int id = item.getItemId();
 
-        //noinspection SimplifiableIfStatement
         if (id == R.id.action_settings) {
             Intent intent = new Intent(getApplicationContext(), SettingsActivity.class);
             startActivity(intent);
@@ -80,7 +83,7 @@ public class MainActivity extends ActionBarActivity {
         String location = Utility.getPreferredLocation(this);
         // update the location in our second pane using the fragment manager
         if (location != null && !location.equals(mLocation)) {
-            ForecastFragment ff = (ForecastFragment) getSupportFragmentManager().findFragmentByTag(FORECASTFRAGMENT_TAG);
+            ForecastFragment ff = (ForecastFragment) getSupportFragmentManager().findFragmentById(R.id.fragment_forecast);
             if (null != ff) {
                 ff.onLocationChanged();
                 mLocation = location;

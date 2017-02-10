@@ -6,6 +6,8 @@ import android.support.v7.app.ActionBarActivity;
 import android.view.Menu;
 import android.view.MenuItem;
 
+import static android.R.attr.fragment;
+
 public class DetailActivity extends ActionBarActivity {
 
     @Override
@@ -13,8 +15,13 @@ public class DetailActivity extends ActionBarActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_detail);
         if (savedInstanceState == null) {
+            //use bundle to send detail URI to next activity
+            Bundle arguments = new Bundle();
+            arguments.putParcelable(DetailFragment.DETAIL_URI, getIntent().getData());
+            DetailFragment fragment = new DetailFragment();
+            fragment.setArguments(arguments);
             getSupportFragmentManager().beginTransaction()
-                    .add(R.id.container, new DetailFragment())
+                    .add(R.id.weather_detail_container, fragment)
                     .commit();
         }
     }

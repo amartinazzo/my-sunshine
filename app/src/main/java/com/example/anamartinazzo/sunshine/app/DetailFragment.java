@@ -2,6 +2,7 @@ package com.example.anamartinazzo.sunshine.app;
 
 import android.content.Intent;
 import android.database.Cursor;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.LoaderManager;
@@ -25,11 +26,12 @@ import com.example.anamartinazzo.sunshine.app.data.WeatherContract.WeatherEntry;
 public class DetailFragment extends Fragment implements LoaderManager.LoaderCallbacks<Cursor> {
 
     private static final String LOG_TAG = DetailFragment.class.getSimpleName();
-
     private static final String FORECAST_SHARE_HASHTAG = " #SunshineApp";
+    static final String DETAIL_URI = "URI";
 
     private ShareActionProvider mShareActionProvider;
     private String mForecast;
+    private Uri mUri;
 
     private static final int DETAIL_LOADER = 0;
 
@@ -79,6 +81,12 @@ public class DetailFragment extends Fragment implements LoaderManager.LoaderCall
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
+
+        Bundle arguments = getArguments();
+        if (arguments != null) {
+            mUri = arguments.getParcelable(DetailFragment.DETAIL_URI);
+        }
+        
         View rootView = inflater.inflate(R.layout.fragment_detail, container, false);
         mIconView = (ImageView) rootView.findViewById(R.id.detail_icon);
         mDateView = (TextView) rootView.findViewById(R.id.detail_date_textview);
@@ -127,7 +135,7 @@ public class DetailFragment extends Fragment implements LoaderManager.LoaderCall
     public Loader<Cursor> onCreateLoader(int id, Bundle args) {
         Log.v(LOG_TAG, "In onCreateLoader");
         Intent intent = getActivity().getIntent();
-        if (intent == null) {
+        if (intent == null || intent.getData() == null) {
             return null;
         }
 
@@ -146,9 +154,7 @@ public class DetailFragment extends Fragment implements LoaderManager.LoaderCall
     @Override
     public void onLoadFinished(Loader<Cursor> loader, Cursor data) {
         if (data != null && data.moveToFirst()) {
-            // Read weather condition ID from cursor
             int weatherId = data.getInt(COL_WEATHER_CONDITION_ID);
-            // Use placeholder Image
             mIconView.setImageResource(Utility.getArtResourceForWeatherCondition(weatherId));
 
             // Read date from cursor and update views for day of week and date

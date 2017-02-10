@@ -70,7 +70,7 @@ public class ForecastAdapter extends CursorAdapter {
     public void bindView(View view, Context context, Cursor cursor) {
         ViewHolder viewHolder = (ViewHolder) view.getTag();
 
-        int conditionId = cursor.getInt(ForecastFragment.COL_WEATHER_ID);
+        int conditionId = cursor.getInt(ForecastFragment.COL_WEATHER_CONDITION_ID);
         int viewType = getItemViewType(cursor.getPosition());
         switch (viewType) {
             case VIEW_TYPE_TODAY: {
