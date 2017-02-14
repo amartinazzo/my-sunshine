@@ -23,7 +23,8 @@
         <activity
             android:name=".SettingsActivity"
             android:label="@string/title_activity_settings"
-            android:parentActivityName=".MainActivity">
+            android:parentActivityName=".MainActivity"
+            android:theme="@style/SettingsTheme">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.example.anamartinazzo.sunshine.app.MainActivity" />
@@ -32,6 +33,9 @@
             android:authorities="com.example.anamartinazzo.sunshine.app"
             android:name=".data.WeatherProvider">
         </provider>
+        <service android:name=".service.SunshineService"/>
+        <receiver android:name=".service.SunshineService$AlarmReceiver" android:enabled="true"/>
+
     </application>
 
 </manifest>
